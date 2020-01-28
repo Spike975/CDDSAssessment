@@ -54,7 +54,6 @@ public:
 			tail = newTail;
 			temp = temp->prev;
 		}
-		head->next = NULL;
 		delete temp;
 	}
 	void popFront() {
@@ -178,7 +177,39 @@ public:
 	}
 
 	void remove(const T & val) {
-
+		if (head != NULL) {
+			Node<T> * temp = head, *temp2 = head;
+			if (temp != NULL && temp->data == val) {
+				head = temp->prev;
+				temp = head;
+			}
+			while (temp != NULL && temp->data != val) {
+				temp2 = temp;
+				temp = temp->prev;
+			}
+			if (temp == NULL) {
+				return;
+			}
+			temp2->prev = temp->prev;
+			remove(val);
+			temp = head;
+			tail = NULL;
+			while (temp != NULL) {
+				Node<T> * newTail = new Node<T>;
+				newTail->data = temp->data;
+				newTail->prev = NULL;
+				if (tail != NULL) {
+					tail->prev = newTail;
+				}
+				newTail->next = tail;
+				tail = newTail;
+				temp = temp->prev;
+			}
+			delete temp;
+		}
+		else {
+			std::cout << "Node Empty";
+		}
 	}
 
 	bool empty() const {

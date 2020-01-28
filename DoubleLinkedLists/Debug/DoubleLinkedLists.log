@@ -1,6 +1,2 @@
 ﻿  main.cpp
-c:\users\s199026\source\repos\cddsassessment\doublelinkedlists\doublelinkedlist.h(198): warning C4018: '<': signed/unsigned mismatch
-  c:\users\s199026\source\repos\cddsassessment\doublelinkedlists\doublelinkedlist.h(194): note: while compiling class template member function 'void DoubleLinkedList<int>::resizeFront(size_t)'
-  c:\users\s199026\source\repos\cddsassessment\doublelinkedlists\main.cpp(11): note: see reference to function template instantiation 'void DoubleLinkedList<int>::resizeFront(size_t)' being compiled
-  c:\users\s199026\source\repos\cddsassessment\doublelinkedlists\main.cpp(4): note: see reference to class template instantiation 'DoubleLinkedList<int>' being compiled
   DoubleLinkedLists.vcxproj -> C:\Users\s199026\source\repos\CDDSAssessment\Debug\DoubleLinkedLists.exe
