@@ -15,23 +15,28 @@ private:
 	Node<T> * head;
 	Node<T> * tail;
 public:
+	//Basic initialization
 	DoubleLinkedList() {
 		head = NULL;
 		tail = NULL;
 	}
+	//Copy initialization
 	DoubleLinkedList(const DoubleLinkedList & other) {
 		head = other->head;
 		tail = other->tail;
 	}
+	//Copy class
 	DoubleLinkedList & operator=(const DoubleLinkedList & other) {
 		head = other->head;
 		tail = other->tail;
 	}
+	//Delete Data after destroyed
 	~DoubleLinkedList() {
 		delete[] head;
 		delete[] tail;
 	}
 
+	//Puts the varible on top of the head, then updates the tail
 	void pushFront(const T & val) {
 		Node<T> * temp = new Node<T>;
 		temp->data = val;
@@ -56,6 +61,7 @@ public:
 		}
 		delete temp;
 	}
+	//Pops out the varible on top of the head, then updates the tail
 	void popFront() {
 		if (head != NULL) {
 			head = head->prev;
@@ -77,6 +83,7 @@ public:
 			delete temp;
 		}
 	}
+	//Puts the varible on the back of the tail, then updates the head
 	void pushBack(const T & val) {
 		Node<T> * temp = new Node<T>;
 		temp->data = val;
@@ -101,6 +108,7 @@ public:
 		}
 		delete temp;
 	}
+	//Pops out the varible on the back of the tail, then updates the head
 	void popBack() {
 		if (tail != NULL) {
 			tail = tail->next;
@@ -122,6 +130,7 @@ public:
 		}
 	}
 
+	//Prints put the data from the head
 	void readForward() {
 		Node<T> * temp = head;
 		while (temp != NULL) {
@@ -130,6 +139,7 @@ public:
 		}
 		delete[] temp;
 	}
+	//Prints put the data from the tail
 	void readReverse() {
 		Node<T> * temp = tail;
 		while (temp != NULL) {
@@ -139,6 +149,7 @@ public:
 		delete[] temp;
 	}
 
+	//Prints the data from the top of the head
 	T & front() {
 		if (head  != NULL) {
 			return head->data;
@@ -148,6 +159,7 @@ public:
 		}
 		return NULL;
 	}
+	//Prints the data from the top of the head as a const
 	const T & front() const{
 		if (head != NULL) {
 			return head->data;
@@ -157,6 +169,7 @@ public:
 		}
 		return NULL;
 	}
+	//Prints the data from the back of the tail
 	T & back() {
 		if (tail != NULL) {
 			return tail->data;
@@ -166,6 +179,7 @@ public:
 		}
 		return NULL;
 	}
+	//Prints the data from the back of the tail as a const
 	const T & back() const {
 		if (tail != NULL) {
 			return tail->data;
@@ -176,6 +190,7 @@ public:
 		return NULL;
 	}
 
+	//Removes all instances of the given value
 	void remove(const T & val) {
 		if (head != NULL) {
 			Node<T> * temp = head, *temp2 = head;
@@ -212,16 +227,19 @@ public:
 		}
 	}
 
+	//Check to see if the lists are empty, then returns acordingly
 	bool empty() const {
 		if (head == NULL && tail == NULL) {
 			return true;
 		}
 		return false;
 	}
+	//Clears the lists
 	void clear() {
 		head = NULL;
 		tail = NULL;
 	}
+	//Resizes the head, adds zeros if needed, then updates the tail
 	void resizeFront(size_t newSize) {
 		if (newSize > 0) {
 			Node<T> * temp = tail;
@@ -241,6 +259,7 @@ public:
 		}
 
 	}
+	//Resizes the tail, adds zeros if needed, then updates the head
 	void resizeBack(size_t newSize) {
 		if (newSize > 0) {
 			Node<T> * temp = head;
