@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+//A node to hold all the data
 template<typename T>
 struct Node
 {
@@ -9,6 +10,7 @@ struct Node
 	Node * next;
 	Node * prev;
 };
+//A class that creates a double linked list
 template<typename T>
 class DoubleLinkedList{
 private:
@@ -227,6 +229,16 @@ public:
 		}
 	}
 
+	//returns the amount of items in the lists
+	size_t size() {
+		size_t currSize = 0;
+		Node<T> * temp = head;
+		while (temp != NULL){
+			currSize++;
+			temp = temp->prev;
+		}
+		return currSize;
+	}
 	//Check to see if the lists are empty, then returns acordingly
 	bool empty() const {
 		if (head == NULL && tail == NULL) {
@@ -279,4 +291,172 @@ public:
 		}
 	}
 
+	//Sorts the lists in from greatest to least on the head
+	void sortUp() {
+		int arrSize = 0;
+		int * arrTemp = new int[size()];
+		Node<T> * temp = head;
+		while(temp != NULL) {
+			arrTemp[arrSize] = temp->data;
+			arrSize++;
+			temp = temp->prev;
+		}
+		for (int x = 0; x < arrSize; x++) {
+			for (int i = 0; i < arrSize - 1 - x; i++) {
+				if (arrTemp[i] > arrTemp[i + 1]) {
+					arrTemp[i] += arrTemp[i + 1];
+					arrTemp[i + 1] = arrTemp[i] - arrTemp[i + 1];
+					arrTemp[i] = arrTemp[i] - arrTemp[i + 1];
+				}
+			}
+		}
+
+		head = NULL;
+		for (int i = 0; i < arrSize; i++) {
+			temp = new Node<T>;
+			temp->data = arrTemp[i];
+			temp->prev = head;
+			if (head != NULL) {
+				head->next = temp;
+			}
+			head = temp;
+		}
+		head->next = NULL;
+
+		temp = head;
+		tail = NULL;
+		while (temp != NULL) {
+			Node<T> * newTail = new Node<T>;
+			newTail->data = temp->data;
+			newTail->prev = NULL;
+			if (tail != NULL) {
+				tail->prev = newTail;
+			}
+			newTail->next = tail;
+			tail = newTail;
+			temp = temp->prev;
+		}
+		
+		delete temp;
+	}
+	//Sorts the lists in from least to greatest on the head
+	void sortDown(){
+		int arrSize = 0;
+		int * arrTemp = new int[size()];
+		Node<T> * temp = head;
+		while (temp != NULL) {
+			arrTemp[arrSize] = temp->data;
+			arrSize++;
+			temp = temp->prev;
+		}
+		for (int x = 0; x < arrSize; x++) {
+			for (int i = 0; i < arrSize - 1 - x; i++) {
+				if (arrTemp[i] < arrTemp[i + 1]) {
+					arrTemp[i] += arrTemp[i + 1];
+					arrTemp[i + 1] = arrTemp[i] - arrTemp[i + 1];
+					arrTemp[i] = arrTemp[i] - arrTemp[i + 1];
+				}
+			}
+		}
+
+		head = NULL;
+		for (int i = 0; i < arrSize; i++) {
+			temp = new Node<T>;
+			temp->data = arrTemp[i];
+			temp->prev = head;
+			if (head != NULL) {
+				head->next = temp;
+			}
+			head = temp;
+		}
+		head->next = NULL;
+
+		temp = head;
+		tail = NULL;
+		while (temp != NULL) {
+			Node<T> * newTail = new Node<T>;
+			newTail->data = temp->data;
+			newTail->prev = NULL;
+			if (tail != NULL) {
+				tail->prev = newTail;
+			}
+			newTail->next = tail;
+			tail = newTail;
+			temp = temp->prev;
+		}
+
+		delete temp;
+	}
+
+	class iterator {
+		Node<T> * cur;
+	public:
+		iterator() {
+			cur = NULL;
+		}
+		iterator(Node<T> * startNode) {
+			cur = startNode;
+		}
+		
+		//Returns true if the iterator points to the same node
+		bool operator== (const iterator & other) {
+			if (cur == other.cur) {
+				return true;
+			}
+			return false;
+		}
+		//Returns false if the iterator does not points to the same node
+		bool operator!= (const iterator & other) {
+			if (cur != other.cur) {
+				return true;
+			}
+			return false;
+		}
+		//Returns a reference to the element pointed to by the current node
+		T & operator*() {
+			return &cur;
+		}
+		//Returns a reference to the element pointed to by the current node
+		const T & operator*() const {
+			return &cur;
+		}
+		//Returns a reference to this iterator after it is incremented
+		iterator & operator++() {
+			cur->data++;
+			return &cur->data;
+		}
+		//Returns an iterator as it was before it was incremented
+		iterator operator++(int) {
+			return cur->data - 1;
+		}
+		//Returns a reference to this iterator after it is decremented
+		iterator & operator--() {
+			cur->data--;
+			return cur->data;
+		}
+		//Returns an iterator as it was before it was decremented
+		iterator operator--() {
+			return cur->data + 1;
+		}
+	};
+	//Returns an iterator pointing to the first element
+	iterator begin() {
+		iterator temp(head);
+		return temp;
+	}
+	//Returns a const iterator pointing to the first element
+	const iterator begin() const{
+		iterator temp(head);
+		return temp;
+	}
+	// returns an iterator pointing to one past the last element
+	iterator end() {
+		iterator temp(tail);
+		return temp;
+	}
+	// returns a const iterator pointing to one past the last element
+	const iterator end() const {
+		iterator temp(tail);
+		return temp;
+	}
 };
