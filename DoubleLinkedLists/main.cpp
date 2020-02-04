@@ -34,11 +34,12 @@ int main() {
 	//test->clear();
 
 	if (test->empty()) {
-		std::cout << "List is empty";
+		std::cout << "List is empty\n";
 	}
 	else {
-		std::cout << "List isn\'t empty";
+		std::cout << "List isn\'t empty\n";
 	}
 
+	system("pause");
 	return 0;
 }

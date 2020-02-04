@@ -7,7 +7,9 @@ int main() {
 
 	test.set("test", 5);
 
-	std::cout << test["test"];
+	std::cout << test["test"] << "\n";
+	
+	system("pause");
 
 	return 0;
 }
