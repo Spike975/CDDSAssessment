@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-//A node to hold all the data
 template<typename T>
 struct Node
 {
