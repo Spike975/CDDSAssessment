@@ -413,29 +413,31 @@ public:
 		}
 		//Returns a reference to the element pointed to by the current node
 		T & operator*() {
-			return &cur;
+			return (*cur).data;
 		}
 		//Returns a reference to the element pointed to by the current node
 		const T & operator*() const {
-			return &cur;
+			return (*cur).data;
 		}
 		//Returns a reference to this iterator after it is incremented
 		iterator & operator++() {
 			cur->data++;
-			return &cur->data;
+			return *cur;
 		}
-		//Returns an iterator as it was before it was incremented
+		//Returns an iterator as it was after it was incremented
 		iterator operator++(int) {
-			return cur->data - 1;
+			cur->data++;
+			return cur;
 		}
 		//Returns a reference to this iterator after it is decremented
 		iterator & operator--() {
 			cur->data--;
-			return cur->data;
+			return *cur;
 		}
-		//Returns an iterator as it was before it was decremented
-		iterator operator--() {
-			return cur->data + 1;
+		//Returns an iterator as it was after it was decremented
+		iterator operator--(int) {
+			cur->data--;
+			return cur;
 		}
 	};
 	//Returns an iterator pointing to the first element
