@@ -292,51 +292,52 @@ public:
 
 	//Sorts the lists in from greatest to least on the head
 	void sortUp() {
-		int arrSize = 0;
-		int * arrTemp = new int[size()];
-		Node<T> * temp = head;
-		while(temp != NULL) {
-			arrTemp[arrSize] = temp->data;
-			arrSize++;
-			temp = temp->prev;
-		}
-		for (int x = 0; x < arrSize; x++) {
-			for (int i = 0; i < arrSize - 1 - x; i++) {
-				if (arrTemp[i] > arrTemp[i + 1]) {
-					arrTemp[i] += arrTemp[i + 1];
-					arrTemp[i + 1] = arrTemp[i] - arrTemp[i + 1];
-					arrTemp[i] = arrTemp[i] - arrTemp[i + 1];
+		if (head != NULL) {
+			int arrSize = 0;
+			int * arrTemp = new int[size()];
+			Node<T> * temp = head;
+			while (temp != NULL) {
+				arrTemp[arrSize] = temp->data;
+				arrSize++;
+				temp = temp->prev;
+			}
+			for (int x = 0; x < arrSize; x++) {
+				for (int i = 0; i < arrSize - 1 - x; i++) {
+					if (arrTemp[i] > arrTemp[i + 1]) {
+						arrTemp[i] += arrTemp[i + 1];
+						arrTemp[i + 1] = arrTemp[i] - arrTemp[i + 1];
+						arrTemp[i] = arrTemp[i] - arrTemp[i + 1];
+					}
 				}
 			}
-		}
 
-		head = NULL;
-		for (int i = 0; i < arrSize; i++) {
-			temp = new Node<T>;
-			temp->data = arrTemp[i];
-			temp->prev = head;
-			if (head != NULL) {
-				head->next = temp;
+			head = NULL;
+			for (int i = 0; i < arrSize; i++) {
+				temp = new Node<T>;
+				temp->data = arrTemp[i];
+				temp->prev = head;
+				if (head != NULL) {
+					head->next = temp;
+				}
+				head = temp;
 			}
-			head = temp;
-		}
-		head->next = NULL;
+			head->next = NULL;
 
-		temp = head;
-		tail = NULL;
-		while (temp != NULL) {
-			Node<T> * newTail = new Node<T>;
-			newTail->data = temp->data;
-			newTail->prev = NULL;
-			if (tail != NULL) {
-				tail->prev = newTail;
+			temp = head;
+			tail = NULL;
+			while (temp != NULL) {
+				Node<T> * newTail = new Node<T>;
+				newTail->data = temp->data;
+				newTail->prev = NULL;
+				if (tail != NULL) {
+					tail->prev = newTail;
+				}
+				newTail->next = tail;
+				tail = newTail;
+				temp = temp->prev;
 			}
-			newTail->next = tail;
-			tail = newTail;
-			temp = temp->prev;
+			delete temp;
 		}
-		
-		delete temp;
 	}
 	//Sorts the lists in from least to greatest on the head
 	void sortDown(){
